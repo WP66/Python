@@ -122,7 +122,7 @@ USER_AGENT_LIST = [
 ]
 ```
 ### 3. 使用Cookies
-##### 可以修改下载中间件里的process_request方法，也可自定义
+> 可以修改下载中间件里的process_request方法，也可自定义
 ###### a. middlewares.py
 ```
 class TestDownloaderMiddleware(object):
@@ -140,9 +140,9 @@ COOKIES = {
     'c': 'ccccc,
 }
 ```
-###### 优化：将获取cookies的功能封装成一个程序，启动程序，重复获取cookie并存入redis或者数据库中，做一个cookie池，然后中间件中直接从cookie池中取cookie进行访问即可。降低被发现或者封号的可能性。
+> 优化：将获取cookies的功能封装成一个程序，启动程序，重复获取cookie并存入redis或者数据库中，做一个cookie池，然后中间件中直接从cookie池中取cookie进行访问即可。降低被发现或者封号的可能性。
 ### 4. 中间件使用Selenium
-##### selenium能够帮助我们解决异步加载的网站数据的抓取；不过弊端也很多，如效率低下，维护困难，爬虫程序启动所依赖的工具增加（浏览器和驱动）
+> selenium能够帮助我们解决异步加载的网站数据的抓取；不过弊端也很多，如效率低下，维护困难，爬虫程序启动所依赖的工具增加（浏览器和驱动）
 ###### a. middlewares.py
 ```
 from scrapy.http import HtmlResponse
@@ -188,7 +188,7 @@ class SeleniumMiddleware(object):
                                request=request)
 ```
 ### 5. 中间件中重试
-##### 对于请求失败失败的url或者被重定向未取到数据的url，我们可以在中间件的process_response中进行重试
+> 对于请求失败失败的url或者被重定向未取到数据的url，我们可以在中间件的process_response中进行重试
 ```
 class RetryMiddleware(RetryMiddleware):
     def __init__(self, settings):
@@ -199,7 +199,7 @@ class RetryMiddleware(RetryMiddleware):
         yield scrapy.Request(url=url, method='POST', body=json_body, headers=headers)
 ```
 ### 6. 中间件中处理异常
-##### 一般情况下，请求失败之后，scrapy会原地重试三次，如果三次都失败了，则放弃这个请求；但如果url正确，由于各种原因导致三次请求都失败，则我们需要重新将其加入请求队列中；修改 process_exception 即可。例如现在有一个TCP超时错误：twisted.internet.error.TCPTimeOutError
+> 一般情况下，请求失败之后，scrapy会原地重试三次，如果三次都失败了，则放弃这个请求；但如果url正确，由于各种原因导致三次请求都失败，则我们需要重新将其加入请求队列中；修改 process_exception 即可。例如现在有一个TCP超时错误：twisted.internet.error.TCPTimeOutError
 ```
 # 先导入这个异常
 from twisted.internet.error import TCPTimedOutError
