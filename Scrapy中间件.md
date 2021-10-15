@@ -87,7 +87,7 @@ def process_request(self, request, spider)
     if 'proxy' in request.meta:
         return
 ```
-所以**当我们设置了自定义的代理、UA等的时候，不需要注释掉自带的中间件**
+> 所以**当我们设置了自定义的代理、UA等的时候，不需要注释掉自带的中间件**
 
 ### 2. 更换UA
 ###### a. middlewares.py
