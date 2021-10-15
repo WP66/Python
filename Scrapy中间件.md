@@ -80,7 +80,7 @@ DOWNLOADER_MIDDLEWARES = {
   'scrapy.contrib.downloadermiddleware.httpproxy.HttpProxyMiddleware': None
 }
 ```
-但是大可不必这样做，因为scrapy自带的中间件源码已经给我们做了处理，关键源码：
+> 但是大可不必这样做，因为scrapy自带的中间件源码已经给我们做了处理，关键源码：
 ```
 def process_request(self, request, spider)
     # ignore if proxy is already set
