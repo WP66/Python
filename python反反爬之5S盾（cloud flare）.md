@@ -50,6 +50,17 @@ def __init__(self, **kwargs):
     # 创建实例
     self.scraper = cloudscraper.create_scraper()
 ```
+> 使用scraper请求url的时候，也可使用代理;
+> 
+> 源码查看支持的参数如下：
+
+![image](https://user-images.githubusercontent.com/84300396/137427710-afd7bebf-9d19-48aa-bcab-b92905f4e8ef.png)
+
+> 使用：
+```
+proxies = {"http": "http://localhost:8080", "https": "http://localhost:8080"}
+spider.scraper.get(url, headers={'referer': url}, proxies=proxies)
+```
 `还有一个库（cfscrape）和cloudscraper用法一模一样，但是经过测试，该库失败`
 
 # 参考文献
