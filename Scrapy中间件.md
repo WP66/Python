@@ -70,9 +70,9 @@ POOL_PORT = 6379
 POOL_DB = 2
 ```
 > 注意：
-1. 启用中间件时，后边的数字（例如：542）表示中间件执行的**优先级**，这个**数字越小，优先级越高**，越早被执行；范围：100 - 900
-2. 如果要禁用中间件，可以注释掉或者将优先级值设为 None
-3. Scrapy其实自带了UA中间件（UserAgentMiddleware）、代理中间件（HttpProxyMiddleware）和重试中间件（RetryMiddleware），所以**原则上**要开发者三种中间件，需要先禁用自带的中间件，如：
+> 1. 启用中间件时，后边的数字（例如：542）表示中间件执行的**优先级**，这个**数字越小，优先级越高**，越早被执行；范围：100 - 900
+> 2. 如果要禁用中间件，可以注释掉或者将优先级值设为 None
+> 3. Scrapy其实自带了UA中间件（UserAgentMiddleware）、代理中间件（HttpProxyMiddleware）和重试中间件（RetryMiddleware），所以**原则上**要开发者三种中间件，需要先禁用自带的中间件，如：
 ```
 DOWNLOADER_MIDDLEWARES = {
   'Test.middlewares.RandomProxy': 542,
