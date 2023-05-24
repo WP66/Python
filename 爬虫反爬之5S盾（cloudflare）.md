@@ -4,7 +4,7 @@
 > 
 ![报错页面.png](https://upload-images.jianshu.io/upload_images/13183156-28e3e4e506acf683.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 # 问题解决
-* 类似于这种需要等待的网站（一般等待5S，所以也称为5s盾），80%可以判定为使用了5s盾反爬。
+### 方法一
 * 在python里，有可以绕过这个等待的库 `cloudscraper`
 * 使用：
 
@@ -63,5 +63,46 @@ spider.scraper.get(url, headers={'referer': url}, proxies=proxies)
 ```
 `还有一个库（cfscrape）和cloudscraper用法一模一样，但是经过测试，该库失败`
 
+### 方法二：抓取谷歌缓存
+* 当谷歌抓取网络以索引网页时，它会创建一个它找到的数据的缓存。大多数受 Cloudflare 保护的网站都让 Google 抓取他们的网站，因此可以抓取此缓存。
+> 使用：
+> 我们只需要在url前加上`https://webcache.googleusercontent.com/search?q=cache:`即可，如：
+```
+import requests
+url = 'https://webcache.googleusercontent.com/search?q=cache:https://www.xxx.com/'
+response = requests.get(url)
+```
+> 这时我们就可以从响应中提取到我们想要的数据
+### 方法三：undetected_chromedriver
+* 还在使用selenium抓取网页被封吗？还在设置冗长的chromedriver参数吗？简单易上手的undetected_chromedriver出现了。
+* 顾名思义，这也是一个自动化工具，不过他更简单，更不容易被封禁，甚至不用下载驱动。
+> 安装：
+```
+pip3 install undetected-chromedriver
+```
+> 简单使用：
+```
+import undetected_chromedriver as uc
+
+url = 'https://www.baidu.com/'
+driver = uc.Chrome()
+driver.get(url)
+```
+> 详细用法可以去看看：https://github.com/ultrafunkamsterdam/undetected-chromedriver
+### 方法四：使用三方接口（付费）
+* 目前已经有很多成熟的代理可供企业/个人使用，我这里找了一个，试用一下看看效果
+```
+url = "https://xxxx.com/"
+# 这个密钥是用我自己的邮箱生成的
+api_key = '一长串密钥'
+proxy = f"http://{api_key}:@proxy.zenrows.com:8001"
+proxies = {"http": proxy, "https": proxy}
+response = requests.get(url, proxies=proxies, verify=False)
+```
+> 试用完全没问题（毕竟是收费的）
+
+
 # 参考文献
-https://github.com/VeNoMouS/cloudscraper
+* https://github.com/VeNoMouS/cloudscraper
+* https://github.com/ultrafunkamsterdam/undetected-chromedriver
+* https://scrapeops.io/web-scraping-playbook/how-to-bypass-cloudflare/#option-2-scrape-google-cache-version
