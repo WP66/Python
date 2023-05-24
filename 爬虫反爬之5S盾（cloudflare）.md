@@ -4,7 +4,7 @@
 > 
 ![报错页面.png](https://upload-images.jianshu.io/upload_images/13183156-28e3e4e506acf683.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 # 问题解决
-### 方法一
+### 方法一：cloudscraper
 * 在python里，有可以绕过这个等待的库 `cloudscraper`
 * 使用：
 
